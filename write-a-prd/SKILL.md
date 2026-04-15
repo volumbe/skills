@@ -1,5 +1,5 @@
 ---
-name: write-a-prd
+name: write-a-PRD
 description: Create a PRD through user interview, codebase exploration, and module design, saved as a local Markdown file in ./.plans/. Use when user wants to write a PRD, create a product requirements document, or plan a new feature.
 ---
 

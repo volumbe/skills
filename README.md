@@ -16,6 +16,12 @@ npx skills@latest add volumbe/skills/write-a-prd
 npx skills@latest add volumbe/skills/prd-to-plan
 ```
 
+- **implement-plan** — Execute a specific phase or an entire approved plan from `./.plans`, including dependency-aware parallel work when explicitly requested and updating the original plan with implementation notes and file footprints.
+
+```bash
+npx skills@latest add volumbe/skills/implement-plan
+```
+
 - **write-ui-spec** — Create a UI specification through frontend exploration, user interview, and structured page/component design. Persists output to `.plans/<feature-name>/ui.md`.
 
 ```bash

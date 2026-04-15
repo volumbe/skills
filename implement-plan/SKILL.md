@@ -83,6 +83,11 @@ For each target phase, extract:
 
 Use these sections to keep the implementation aligned with the original plan rather than drifting into ad hoc feature work.
 
+Treat **Acceptance criteria** as markdown task checkboxes, not plain bullet points. In other words, they should look like:
+
+- `[ ] Criterion not yet complete`
+- `[x] Criterion completed and verified`
+
 ### 2. Explore the codebase
 
 Inspect the referenced files and nearby implementation patterns before coding.
@@ -121,6 +126,8 @@ For each completed phase:
 1. Check off completed **Acceptance criteria** items with `[x]`
 2. Fill in **Implementation Notes**
 3. Fill in **Implementation Footprint**
+
+Do not rewrite acceptance criteria as plain bullets. Preserve the checkbox format and only flip items from `[ ]` to `[x]` when they are genuinely complete and verified.
 
 ### What goes in Implementation Notes
 

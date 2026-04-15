@@ -62,7 +62,7 @@ Each phase must include these sections:
 - **Blocked by** - list of phases that must be completed before this phase can start. Use "None" for phases with no dependencies. This tells agents which phases can run in parallel.
 - **User stories** - which PRD user stories this phase covers
 - **What to build** - concise end-to-end description of the vertical slice
-- **Acceptance criteria** - checkboxes for verifiable outcomes
+- **Acceptance criteria** - markdown task checkboxes for verifiable outcomes, using `[ ]` for incomplete items and `[x]` only after verification
 - **References** - codebase files to follow/modify and external documentation URLs
 - **Implementation Notes** - initially blank, filled after implementation with deviations, decisions, and surprises
 - **Implementation Footprint** - initially blank, filled after implementation with list of files created/modified
@@ -79,3 +79,8 @@ The plan must begin with an agent instructions callout:
 > 3. Check off **acceptance criteria** - mark completed items with `[x]`.
 >
 > Read the PRD and the relevant **References** before starting each phase. Phases with no blockers can be implemented in parallel.
+
+When drafting the plan, write acceptance criteria as markdown task checkboxes, for example:
+
+- `[ ] User can save a draft successfully`
+- `[ ] Relevant test coverage exists for the slice`

@@ -10,7 +10,7 @@ Create a UI specification document (`ui.md`) for a feature by exploring the exis
 The spec should now cover both structure and low-fidelity layout:
 
 - Information architecture and component structure
-- Desktop and mobile wireframe-style sections
+- Desktop and mobile wireframe diagrams
 - Responsive layout notes
 - Simple Mermaid diagrams for page/view flows when they help clarify navigation or multi-step interactions
 
@@ -82,21 +82,43 @@ Use a simple Mermaid flow only when it adds clarity. Prefer one diagram per page
 
 ### Desktop Wireframe
 
-Describe the desktop layout in a low-fidelity wireframe style. Focus on regions and hierarchy, for example:
+Render the desktop wireframe as a Mermaid diagram, not as descriptive bullet points. Use simple layout regions and labels. For example:
 
-- Header with page title, breadcrumb, and primary CTA
-- Left sidebar filters
-- Main content area with summary cards above a table
-- Right-side detail panel for row drill-in
+```mermaid
+flowchart TD
+  Header["Header: Title | Breadcrumbs | Primary CTA"]
+  Body["Desktop Body"]
+  Sidebar["Left Sidebar: Filters"]
+  Main["Main Content: Summary Cards + Table"]
+  Detail["Right Panel: Detail View"]
+
+  Header --> Body
+  Body --> Sidebar
+  Body --> Main
+  Body --> Detail
+```
+
+Prefer clarity over visual cleverness. The goal is a low-fidelity structural wireframe that communicates hierarchy and placement.
 
 ### Mobile Wireframe
 
-Describe the mobile layout in a low-fidelity wireframe style. Focus on stacking, condensed navigation, and action placement, for example:
+Render the mobile wireframe as a Mermaid diagram, not as descriptive bullet points. Show stacking order and condensed navigation. For example:
 
-- Top app bar with title and overflow menu
-- Summary cards in a horizontal swipe or stacked list
-- Filters behind a bottom sheet
-- Table replaced by stacked entity cards
+```mermaid
+flowchart TD
+  AppBar["Top App Bar: Title | Overflow"]
+  Summary["Summary Cards"]
+  Filters["Filters Bottom Sheet Trigger"]
+  List["Stacked Entity Cards"]
+  Sticky["Sticky Primary Action"]
+
+  AppBar --> Summary
+  Summary --> Filters
+  Filters --> List
+  List --> Sticky
+```
+
+Use the mobile wireframe to make layout collapse and action placement obvious at a glance.
 
 ### Section/Tab N.N: [Name]
 
@@ -148,5 +170,6 @@ New entries in sidebar, tab bars, or other navigation surfaces. Include placemen
 - **Resolve sub-entity display patterns explicitly.** "Does this open a dialog, a side panel, or a new page?" is a design decision.
 - **Feature-gate new navigation items** when the feature may be rolled out incrementally.
 - **Separate management views from consumer views.** Admin CRUD and end-user read-only views are distinct, even if they share components.
-- **Wireframe, don't art direct.** Include low-fidelity desktop/mobile layout guidance, but do not turn the spec into polished visual design directions.
+- **Wireframe as diagrams, not prose.** Desktop and mobile wireframes should be Mermaid diagrams so the layout can be scanned visually.
+- **Wireframe, don't art direct.** Keep the wireframes low-fidelity and structural, not polished visual design directions.
 - **Use diagrams selectively.** Add simple Mermaid flows when page transitions or multi-step interactions would otherwise be ambiguous.

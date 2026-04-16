@@ -1,11 +1,18 @@
 ---
 name: write-ui-spec
-description: Create a UI specification through codebase exploration, user interview, and structured page/component design. Use when user wants to plan UI, design pages, create a ui.md, spec out frontend, or plan a dashboard/page layout for an existing feature.
+description: Create a UI specification through codebase exploration, user interview, and structured page/component design. Use when user wants to plan UI, design pages, create a ui.md, spec out frontend, plan a dashboard/page layout, or produce desktop/mobile wireframes or simple UI flow diagrams for an existing feature.
 ---
 
 # Write a UI Spec
 
 Create a UI specification document (`ui.md`) for a feature by exploring the existing frontend architecture, interviewing the user about page structure and access control, and producing a structured spec.
+
+The spec should now cover both structure and low-fidelity layout:
+
+- Information architecture and component structure
+- Desktop and mobile wireframe-style sections
+- Responsive layout notes
+- Simple Mermaid diagrams for page/view flows when they help clarify navigation or multi-step interactions
 
 ## Process
 
@@ -33,6 +40,7 @@ Walk through each page/view one at a time. For each, resolve:
 - **What does it contain?** (tables, forms, charts, cards, read-only info)
 - **What actions are available?** (CRUD, bulk operations, exports, copy)
 - **How do related entities appear?** (inline, expandable, side panel, dialog, separate page)
+- **How does desktop differ from mobile?** (stacking, hidden columns, drawer vs sidebar, sticky actions, tab collapse, etc.)
 
 Provide your recommended answer for each question. Resolve dependencies between decisions before moving on (e.g., settle where the page lives before discussing its contents).
 
@@ -59,6 +67,36 @@ Save to `.plans/<feature-name>/ui.md`. Use the template below.
 **Location:** Where in the app this lives (new sidebar entry, tab on existing page, nested route, etc.)
 
 **Layout:** Layout pattern or component used.
+
+**Responsive Notes:** Key desktop/mobile differences, including layout shifts, collapsed navigation, overflow behavior, and action placement.
+
+### Flow Diagram
+
+```mermaid
+flowchart TD
+  A["Entry point"] --> B["Page or section"]
+  B --> C["Primary action"]
+```
+
+Use a simple Mermaid flow only when it adds clarity. Prefer one diagram per page or flow, not per tiny interaction.
+
+### Desktop Wireframe
+
+Describe the desktop layout in a low-fidelity wireframe style. Focus on regions and hierarchy, for example:
+
+- Header with page title, breadcrumb, and primary CTA
+- Left sidebar filters
+- Main content area with summary cards above a table
+- Right-side detail panel for row drill-in
+
+### Mobile Wireframe
+
+Describe the mobile layout in a low-fidelity wireframe style. Focus on stacking, condensed navigation, and action placement, for example:
+
+- Top app bar with title and overflow menu
+- Summary cards in a horizontal swipe or stacked list
+- Filters behind a bottom sheet
+- Table replaced by stacked entity cards
 
 ### Section/Tab N.N: [Name]
 
@@ -110,4 +148,5 @@ New entries in sidebar, tab bars, or other navigation surfaces. Include placemen
 - **Resolve sub-entity display patterns explicitly.** "Does this open a dialog, a side panel, or a new page?" is a design decision.
 - **Feature-gate new navigation items** when the feature may be rolled out incrementally.
 - **Separate management views from consumer views.** Admin CRUD and end-user read-only views are distinct, even if they share components.
-- **Don't spec visual design.** Focus on information architecture, component structure, and access control. Let the design system handle styling.
+- **Wireframe, don't art direct.** Include low-fidelity desktop/mobile layout guidance, but do not turn the spec into polished visual design directions.
+- **Use diagrams selectively.** Add simple Mermaid flows when page transitions or multi-step interactions would otherwise be ambiguous.

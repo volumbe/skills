@@ -28,7 +28,16 @@ npx skills@latest add volumbe/skills/implement-plan
 npx skills@latest add volumbe/skills/write-ui-spec
 ```
 
+## Debugging
+
+- **triage-bug** — Investigate a bug, regression, or broken behavior by tracing the likely root cause and producing a concrete fix and validation plan without forcing TDD or creating a GitHub issue.
+
+```bash
+npx skills@latest add volumbe/skills/triage-bug
+```
+
 ## Credits
 
 - **write-a-prd** and **prd-to-plan** are adapted from [mattpocock/skills](https://github.com/mattpocock/skills).
+- **triage-bug** is adapted from [`triage-issue`](https://github.com/mattpocock/skills/blob/main/triage-issue/SKILL.md) in [mattpocock/skills](https://github.com/mattpocock/skills), but generalized to end in a diagnosis and repair plan instead of TDD steps and GitHub issue creation.
 - The versions in this repo keep the original workflows, with changes to how PRDs and plans are persisted so they land in local project folders instead of GitHub issues or flatter plan outputs.

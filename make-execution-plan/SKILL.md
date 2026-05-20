@@ -60,10 +60,11 @@ Use `bypassPermissions` only in a trusted local workspace. In non-interactive
 allows it to inspect the repository before returning the plan.
 
 If Claude must be prevented from using tools for a specific reason, say so in the
-prompt and use a tool-restricted command deliberately:
+prompt and use a tool-restricted command deliberately. Use `--tools ""` for this
+local Claude CLI; `--bare` is not supported here:
 
 ```bash
-claude --model opus --effort max --bare --no-session-persistence -p "$(cat /tmp/execution-plan-prompt.md)"
+claude --model opus --effort max --tools "" --no-session-persistence -p "$(cat /tmp/execution-plan-prompt.md)"
 ```
 
 Planning runs may take several minutes before producing output. Do not assume Claude

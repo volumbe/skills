@@ -5,9 +5,9 @@ description: Create a concrete, file-level execution plan by delegating the plan
 
 # Make Execution Plan
 
-Use this skill to turn an existing request, PRD, or plan into a concrete execution checklist by asking the Claude CLI for a second planning pass. The execution plan can stay in memory and be relayed back to the user, or be saved as `./.plans/<feature-name>/execution.md` when the user asks for a file.
+Use this skill to turn an existing request, PRD, or plan into a concrete execution plan by asking the Claude CLI for a second planning pass. The execution plan can stay in memory and be relayed back to the user, or be saved as `./.plans/<feature-name>/execution.md` when the user asks for a file.
 
-When persisted, `execution.md` must be a working checklist for an implementing agent, not a prose memo. Use markdown task checkboxes so progress can be tracked directly in the file.
+When persisted, `execution.md` must be a working execution document for an implementing agent, not a prose memo. Use markdown task checkboxes so progress can be tracked directly in the file, and allow concrete implementation notes, pseudo-code, real code snippets, query sketches, schema sketches, or command examples when they help the implementer move faster.
 
 ## Workflow
 
@@ -59,13 +59,14 @@ If a Claude run hangs or produces no output after about 90 seconds, stop it and 
 
 ### 4. Claude prompt template
 
-Include enough context for Claude to be specific. The prompt should tell Claude not to edit files and to return only the checklist.
+Include enough context for Claude to be specific. The prompt should tell Claude not to edit files and to return only the execution plan.
 
 ```text
 Create a concrete execution plan for the current coding agent to follow.
 
-Do not edit files. Return only the detailed execution checklist and verification commands.
+Do not edit files. Return only the detailed execution plan and verification commands.
 Be file-level and sequencing-level, not architectural fluff.
+Use markdown checkboxes for trackable work, but include pseudo-code, real code snippets, SQL/query sketches, schemas, or examples where they make the implementation clearer.
 
 Repository: <absolute repo path>
 User request: <what is being implemented>
@@ -88,19 +89,20 @@ Likely files/modules:
 
 Required output shape:
 1. Execution phases in order, each using markdown task checkboxes
-2. Each phase contains `Checklist`, `Execution Notes`, and `Follow-Ups` sections
+2. Each phase contains `Checklist`, optional `Implementation Details`, `Execution Notes`, and `Follow-Ups` sections
 3. Exact files likely to create or modify
 4. Data/API/UI wiring details as actionable checklist items
-5. Edge cases and access-control rules as checklist items
+5. Edge cases and access-control rules as checklist items or implementation details
 6. Verification commands as checklist items
 7. Manual smoke checks as checklist items
+8. Pseudo-code, SQL, TypeScript snippets, schema sketches, or examples when useful
 
 Keep it implementation-ready. Avoid product rationale.
 
 The persisted execution plan must include this instruction near the top:
 
 > [!IMPORTANT]
-> This is a working execution checklist. As implementation progresses, mark items with `[x]` only after the code is changed and the relevant verification has passed. Leave blocked or unverified work unchecked and add a short note explaining why.
+> This is a working execution plan. As implementation progresses, mark checklist items with `[x]` only after the code is changed and the relevant verification has passed. Leave blocked or unverified work unchecked and add a short note explaining why. Code snippets and pseudo-code are guidance, not completion markers.
 ```
 
 ### 5. Review and use the plan
@@ -118,9 +120,9 @@ When writing `execution.md`, include a short header with:
 - Source references used
 - Date created
 - Note that Claude CLI generated the first draft and the current agent reviewed it
-- The working-checklist instruction block shown above
+- The working execution plan instruction block shown above
 
-Then structure the body with unchecked markdown tasks:
+Then structure the body with unchecked markdown tasks and optional implementation details:
 
 ```md
 ## Phase 1: <name>
@@ -131,6 +133,14 @@ Then structure the body with unchecked markdown tasks:
 - [ ] Add/update tests for ...
 - [ ] Run `<verification command>`
 - [ ] Manually verify ...
+
+### Implementation Details
+
+Optional concrete notes, pseudo-code, TypeScript snippets, SQL/query sketches, route shapes, or examples that make the checklist easier to execute.
+
+```ts
+// Example shape only; adapt to the actual code.
+```
 
 ### Execution Notes
 
@@ -143,6 +153,7 @@ Then structure the body with unchecked markdown tasks:
 
 Do not mark any checklist item as complete when creating the execution plan. Completion belongs to the agent doing the implementation.
 Do not pre-fill `Execution Notes` or `Follow-Ups` with speculative content. Use short placeholder comments so the implementing agent knows what to add after executing the phase.
+Do not force every detail into a checkbox. Use prose and snippets for details that explain how to implement a checked item.
 
 ## Example triggers
 

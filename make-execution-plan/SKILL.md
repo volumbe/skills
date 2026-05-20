@@ -48,7 +48,7 @@ Use a prompt file or heredoc for substantial context so shell quoting does not d
 Recommended command shape:
 
 ```bash
-claude --permission-mode bypassPermissions --no-session-persistence -p "$(cat /tmp/execution-plan-prompt.md)"
+claude --model opus --effort max --permission-mode bypassPermissions --no-session-persistence -p "$(cat /tmp/execution-plan-prompt.md)"
 ```
 
 When the plan depends on codebase details, let Claude use its normal planning-mode
@@ -63,7 +63,7 @@ If Claude must be prevented from using tools for a specific reason, say so in th
 prompt and use a tool-restricted command deliberately:
 
 ```bash
-claude --bare --no-session-persistence -p "$(cat /tmp/execution-plan-prompt.md)"
+claude --model opus --effort max --bare --no-session-persistence -p "$(cat /tmp/execution-plan-prompt.md)"
 ```
 
 Planning runs may take several minutes before producing output. Do not assume Claude

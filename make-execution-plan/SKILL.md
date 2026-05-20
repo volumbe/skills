@@ -39,23 +39,37 @@ Do not overwrite an existing `execution.md` without checking whether it should b
 
 ### 3. Invoke Claude CLI
 
-Prefer a bounded, non-editing Claude invocation. Claude should plan only; the current agent remains responsible for edits.
+Prefer a non-editing Claude invocation that gives Claude enough room to inspect the
+repo and think through the plan. Claude should plan only; the current agent remains
+responsible for edits.
 
 Use a prompt file or heredoc for substantial context so shell quoting does not distort paths or Markdown.
 
 Recommended command shape:
 
 ```bash
-claude --bare --tools "" --no-session-persistence --max-budget-usd 1 -p "$(cat /tmp/execution-plan-prompt.md)"
+claude --permission-mode bypassPermissions --no-session-persistence -p "$(cat /tmp/execution-plan-prompt.md)"
 ```
 
-If repo inspection by Claude is necessary and worth the cost, allow read-only tools explicitly and keep the prompt narrow:
+When the plan depends on codebase details, let Claude use its normal planning-mode
+tool access. Do not suppress tools or cap the run with a max budget unless the user
+explicitly asks for a constrained/cheap planning pass.
+
+Use `bypassPermissions` only in a trusted local workspace. In non-interactive
+`-p` runs, this avoids Claude parking while waiting for tool permission prompts and
+allows it to inspect the repository before returning the plan.
+
+If Claude must be prevented from using tools for a specific reason, say so in the
+prompt and use a tool-restricted command deliberately:
 
 ```bash
-claude --permission-mode plan --allowedTools "Read,Grep,Glob,Bash(rg *),Bash(find *)" --no-session-persistence -p "$(cat /tmp/execution-plan-prompt.md)"
+claude --bare --no-session-persistence -p "$(cat /tmp/execution-plan-prompt.md)"
 ```
 
-If a Claude run hangs or produces no output after about 90 seconds, stop it and rerun with `--bare --tools ""` using tighter context gathered by this agent.
+Planning runs may take several minutes before producing output. Do not assume Claude
+is hanging just because there is no output after 90 seconds. Before interrupting,
+check whether the process is still active and give it more time unless the user has
+asked for a quick answer or the process is clearly stuck.
 
 ### 4. Claude prompt template
 

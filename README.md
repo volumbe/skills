@@ -9,3 +9,11 @@ A small collection of agent skills.
 ```bash
 npx skills@latest add volumbe/skills/make-execution-plan
 ```
+
+## Even Terminal
+
+- **setup-even-terminal** — Set up, verify, update, or reconnect Even Realities Even Terminal with Codex, including transport selection and secure pairing.
+
+```bash
+npx skills@latest add volumbe/skills/setup-even-terminal
+```

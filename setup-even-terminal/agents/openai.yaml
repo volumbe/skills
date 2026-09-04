@@ -1,0 +1,4 @@
+interface:
+  display_name: "Setup Even Terminal"
+  short_description: "Set up and reconnect Even Terminal with Codex"
+  default_prompt: "Set up Even Terminal with Codex on this machine and give me the pairing URL and token."
